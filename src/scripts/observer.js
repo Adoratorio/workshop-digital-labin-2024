@@ -18,7 +18,7 @@ const callback = (entries, observer) => {
         path: entry.target.src,
       }).then((file) => {
         const [plane, clone] = entry.target._planes;
-        plane.material.map = file;
+        plane.material.uniforms.uColor.value = file;
         plane.material.needsUpdate = true;
 
         const w = file.source.data.width;

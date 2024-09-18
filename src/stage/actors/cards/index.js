@@ -1,12 +1,17 @@
 import {
   Group,
-  MeshBasicMaterial,
+  ShaderMaterial,
   PlaneGeometry,
   Mesh,
+  UniformsUtils,
+  UniformsLib,
 } from 'three';
 import { gsap } from 'gsap';
 import { observer } from '@/scripts/observer';
+import Lenis from '@/scripts/Lenis';
 import TimelineManager from '@/stage/managers/TimelineManager';
+import vertexShader from './material.vert';
+import fragmentShader from './material.frag';
 
 const distFromCenter = 6;
 const step = 10;
@@ -26,12 +31,22 @@ export default class Cards extends Group {
 
   init() {
     const groups = [new Group(), new Group()];
-    const basePlaneMaterial = new MeshBasicMaterial();
     const imagesNodes = [...this.node.querySelectorAll('section.chapter img')];
 
     imagesNodes.forEach((image, index) => {
       const geometry = new PlaneGeometry(1, 1, 32, 32);
-      const material = basePlaneMaterial.clone();
+      const material = new ShaderMaterial({
+        vertexShader,
+        fragmentShader,
+        fog: true,
+        uniforms: UniformsUtils.merge([
+          UniformsLib['fog'],
+          {
+            uColor: { value: null },
+            uVelocity: { value: 0.0 },
+          },
+        ]),
+      });
       const plane = new Mesh(geometry, material);
 
       plane.position.x = index % 2 === 0 ? -distFromCenter : distFromCenter;
@@ -60,6 +75,14 @@ export default class Cards extends Group {
         duration: 1,
         ease: 'none',
       }));
+    });
+  }
+
+  render() {
+    this.children.forEach((child) => {
+      child.children.forEach((plane) => {
+        plane.material.uniforms.uVelocity.value = Lenis.velocity * 0.1;
+      });
     });
   }
 }
