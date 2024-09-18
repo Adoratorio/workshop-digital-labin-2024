@@ -8,6 +8,7 @@ import Floor from './actors/floor';
 import Cards from './actors/cards';
 import Caustics from './actors/caustics';
 import Bubbles from './actors/bubbles';
+import Godrays from './actors/godrays';
 import Gui from './utils/Gui';
 
 class Scene extends ThreeScene {
@@ -32,6 +33,7 @@ class Scene extends ThreeScene {
     this.actors.set('cards', new Cards());
     this.actors.set('caustics', new Caustics());
     this.actors.set('bubbles', new Bubbles());
+    this.actors.set('godrays', new Godrays());
 
     this.add(...this.actors.values());
 
