@@ -17,7 +17,7 @@ const callback = (entries, observer) => {
         type: 'texture',
         path: entry.target.src,
       }).then((file) => {
-        const plane = entry.target._plane;
+        const [plane, clone] = entry.target._planes;
         plane.material.map = file;
         plane.material.needsUpdate = true;
 
@@ -25,8 +25,12 @@ const callback = (entries, observer) => {
         const h = file.source.data.height;
         const scale = 8;
 
-        if (w > h) plane.scale.set(scale, scale * h / w, 1);
-        else plane.scale.set(scale * w / h, scale, 1);
+        [plane, clone].forEach((card) => {
+          if (w > h) card.scale.set(scale, scale * h / w, 1);
+          else card.scale.set(scale * w / h, scale, 1);
+
+          card.updateMatrix();
+        });
 
         plane.updateMatrix();
       });

@@ -1,5 +1,6 @@
 import { Scene as ThreeScene, AmbientLight } from 'three';
 import Floor from './actors/floor';
+import Cards from './actors/cards';
 
 class Scene extends ThreeScene {
   constructor() {
@@ -17,6 +18,7 @@ class Scene extends ThreeScene {
 
   addActors() {
     this.actors.set('floor', new Floor());
+    this.actors.set('cards', new Cards());
 
     this.add(...this.actors.values());
   }
