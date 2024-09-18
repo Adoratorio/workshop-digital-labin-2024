@@ -3,7 +3,7 @@ import screen from './utils/screen';
 
 class Camera extends PerspectiveCamera {
   constructor() {
-    super(75, screen.ratio.x, 0.1, 100);
+    super(55, screen.ratio.x, 0.1, 100);
 
     this.position.set(0, 0, 10);
   }
