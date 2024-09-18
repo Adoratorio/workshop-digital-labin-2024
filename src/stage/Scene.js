@@ -6,6 +6,7 @@ import {
 } from 'three';
 import Floor from './actors/floor';
 import Cards from './actors/cards';
+import Gui from './utils/Gui';
 
 class Scene extends ThreeScene {
   constructor() {
@@ -29,6 +30,28 @@ class Scene extends ThreeScene {
     this.actors.set('cards', new Cards());
 
     this.add(...this.actors.values());
+
+    this.checkDebugMode();
+  }
+
+  checkDebugMode() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const debug = urlParams.get('debug');
+
+    Gui.close();
+
+    if (debug) {
+      const sceneGui = Gui.addFolder('Scene 📹');
+
+      sceneGui.addColor(this.fog, 'color').name('Fog color');
+      sceneGui.addColor(this, 'background').name('Scene background');
+      sceneGui.close();
+
+      this.actors.forEach((actor) => {
+        if (typeof actor.addGui === 'function') actor.addGui();
+      });
+    }
   }
 }
 
