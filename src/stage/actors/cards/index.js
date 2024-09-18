@@ -44,6 +44,9 @@ export default class Cards extends Group {
           {
             uColor: { value: null },
             uVelocity: { value: 0.0 },
+            uTime: { value: 0.0 },
+            uRandom: { value: gsap.utils.random(0, 1) },
+            uOrientation: { value: index % 2 === 0 ? 1 : -1 },
           },
         ]),
       });
@@ -78,10 +81,11 @@ export default class Cards extends Group {
     });
   }
 
-  render() {
+  render(t) {
     this.children.forEach((child) => {
       child.children.forEach((plane) => {
         plane.material.uniforms.uVelocity.value = Lenis.velocity * 0.1;
+        plane.material.uniforms.uTime.value = t.elapsed;
       });
     });
   }
