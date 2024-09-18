@@ -6,6 +6,7 @@ import {
 } from 'three';
 import Floor from './actors/floor';
 import Cards from './actors/cards';
+import Caustics from './actors/caustics';
 import Gui from './utils/Gui';
 
 class Scene extends ThreeScene {
@@ -28,6 +29,7 @@ class Scene extends ThreeScene {
   addActors() {
     this.actors.set('floor', new Floor());
     this.actors.set('cards', new Cards());
+    this.actors.set('caustics', new Caustics());
 
     this.add(...this.actors.values());
 
