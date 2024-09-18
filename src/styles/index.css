@@ -1,0 +1,62 @@
+@import './normalize.css';
+@import './lenis.css';
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #212121;
+    background-color: #dedede;
+  }
+}
+
+.app {
+  &__stage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  &__content {
+    position: relative;
+    width: 100%;
+
+    opacity: 0;
+    pointer-events: none;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10vh;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+
+    &-spacer {
+      height: 200vh;
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5vh;
+
+      img {
+        width: 25vw;
+        height: auto;
+      }
+    }
+  }
+}
