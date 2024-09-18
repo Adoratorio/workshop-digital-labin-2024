@@ -46,6 +46,7 @@ class Stage {
     TimelineManager.render();
 
     Scene.actors.forEach(actor => typeof actor.render === 'function' && actor.render(t));
+    Camera.render();
 
     Renderer.render(Scene, Camera);
   }
